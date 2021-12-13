@@ -185,10 +185,10 @@ contract Farm is Ownable {
     // history of lockup rate changes so there is not a bunch of computation done at once but instead
     // distributed among the users. However, I don't implement this here for now because of the complexity.
     function adjustLockupRate(uint16 lockupPeriod, uint32 basePoints) onlyOwner() external {
-        lockupRates[lockupPeriod] = basePoints;
         for (uint i = 0; i < allAddresses.length; i++) {
             _update(allAddresses[i]);
         }
+        lockupRates[lockupPeriod] = basePoints;
     }
 
     function adjustWithdrawFee(uint16 newWithdrawFee) onlyOwner() external {
